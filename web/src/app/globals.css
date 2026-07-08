@@ -31,24 +31,21 @@ body {
   background-repeat: no-repeat;
 }
 
-/* Subtle moving grid layer behind everything. */
+/* Subtle grid layer behind everything. Negative z-index keeps it (and nothing else)
+   below the page content — do NOT try to lift content instead with a `body > *` rule:
+   unlayered CSS beats Tailwind v4's layered utilities, which silently breaks classes
+   like `fixed` on direct children of body. */
 body::before {
   content: "";
   position: fixed;
   inset: 0;
-  z-index: 0;
+  z-index: -1;
   pointer-events: none;
   background-image:
     linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
     linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
   background-size: 44px 44px;
   mask-image: radial-gradient(circle at 50% 30%, black, transparent 80%);
-}
-
-/* Everything real sits above the background layers. */
-body > * {
-  position: relative;
-  z-index: 1;
 }
 
 /* ---- Reusable design primitives ---- */
