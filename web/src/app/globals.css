@@ -3,4 +3,123 @@
 @theme inline {
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+
+  --color-ink: #05060a;
+  --color-ink-2: #0a0c14;
+  --color-violet: #7c6cff;
+  --color-violet-2: #a78bfa;
+  --color-cyan: #38e8d8;
+}
+
+:root {
+  color-scheme: dark;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #05060a;
+  color: #e8e9f0;
+  /* Layered radial glows + a faint grid, fixed so it doesn't scroll away. */
+  background-image:
+    radial-gradient(60rem 60rem at 12% -10%, rgba(124, 108, 255, 0.18), transparent 60%),
+    radial-gradient(50rem 50rem at 100% 0%, rgba(56, 232, 216, 0.1), transparent 55%),
+    radial-gradient(40rem 40rem at 50% 120%, rgba(124, 108, 255, 0.1), transparent 60%);
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+/* Subtle moving grid layer behind everything. */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.025) 1px, transparent 1px);
+  background-size: 44px 44px;
+  mask-image: radial-gradient(circle at 50% 30%, black, transparent 80%);
+}
+
+/* Everything real sits above the background layers. */
+body > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Reusable design primitives ---- */
+
+.glass {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(12px);
+}
+
+.glass-hover {
+  transition: border-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+.glass-hover:hover {
+  border-color: rgba(124, 108, 255, 0.4);
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px -12px rgba(124, 108, 255, 0.35);
+}
+
+.gradient-text {
+  background: linear-gradient(120deg, #ffffff 0%, #c9c3ff 40%, #7c6cff 70%, #38e8d8 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.glow-dot {
+  box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.06), 0 0 12px 2px currentColor;
+}
+
+/* Slow float animation for background accent orbs. */
+@keyframes float-slow {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(2rem, -1.5rem) scale(1.08); }
+}
+.animate-float-slow {
+  animation: float-slow 14s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0% { box-shadow: 0 0 0 0 rgba(124, 108, 255, 0.4); }
+  70% { box-shadow: 0 0 0 8px rgba(124, 108, 255, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(124, 108, 255, 0); }
+}
+.animate-pulse-ring {
+  animation: pulse-ring 2.4s ease-out infinite;
+}
+
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* Custom scrollbar for a more "product" feel. */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(124, 108, 255, 0.25);
+  border-radius: 999px;
+  border: 2px solid transparent;
+  background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(124, 108, 255, 0.45);
+  background-clip: padding-box;
 }
