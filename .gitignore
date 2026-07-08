@@ -6,10 +6,9 @@ out/
 .logs/
 .ignore/
 
-# Ignores development broadcast logs
-!/broadcast
-/broadcast/*/31337/
-/broadcast/**/dry-run/
+# Broadcast logs are local deployment artifacts, not committed — deployed addresses are
+# documented in README.md instead. Exclude the whole directory.
+broadcast/
 
 # Docs
 docs/

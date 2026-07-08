@@ -5,7 +5,7 @@
   "description": "Off-chain milestone review agent for AI Tranche — reviews submitted evidence with Claude and posts an EAS attestation that the TrancheVault contract checks before releasing a tranche.",
   "type": "module",
   "scripts": {
-    "review": "tsx src/reviewMilestone.ts"
+    "review": "tsx --env-file=.env src/reviewMilestone.ts"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.32.0",

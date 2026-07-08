@@ -14,6 +14,6 @@ export const anvilLocal = defineChain({
 export const config = getDefaultConfig({
   appName: "AI Tranche",
   projectId: process.env.NEXT_PUBLIC_WALLETCONNECT_PROJECT_ID || "00000000000000000000000000000000",
-  chains: [anvilLocal, baseSepolia],
+  chains: [baseSepolia, anvilLocal],
   ssr: true,
 });
