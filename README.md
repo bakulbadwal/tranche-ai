@@ -26,20 +26,36 @@ window before any capital actually moves.
 
 ### The bigger whitespace this sits inside
 
-As of mid-2026, the two most-cited venture theses at the AI × crypto intersection are:
+This isn't a vague "AI x crypto" vibe — it's a specific, dated, checkable convergence:
 
-- **a16z crypto's "KYA" (Know Your Agent)** — the claim that the agent economy's bottleneck has
-  shifted from intelligence to identity: agents need a way to prove who they represent, what
-  they're allowed to do, and how they get paid, and no interoperable standard has won yet.
-- **The "verification layer is missing"** thesis (Forbes, Feb 2026) — if an agent claims it made
-  a decision using specific evidence, there's currently no way for a counterparty to verify that
-  claim instead of just trusting the operator. No infrastructure yet lets you cheaply prove a
-  claimed computation or judgment was made honestly.
+- **"KYA" (Know Your Agent)** — coined by [Sean Neville](https://a16zcrypto.com/posts/article/trends-ai-agents-automation-crypto/)
+  (Circle co-founder, USDC architect), published on a16z crypto's site Jan 7, 2026: *"The critical
+  missing primitive here is KYA."* Not just a blog post — a16z crypto backed Neville's own company,
+  **Catena Labs, with $18M**, and separately put **$9.5M into Skyfire** (a16z Crypto Startup
+  Accelerator + Coinbase Ventures) to build agent-identity infrastructure. Real capital, not just a thesis.
+- **"The verification layer is missing"** (Forbes, Sandy Peng, Feb 26 2026): *"there is no
+  infrastructure that can mathematically prove a computation ran correctly, that a document was
+  produced by a specific system, or that an agent's identity has been verified."*
+- **Corporate standards converged on the same problem in the same window**: Visa's Trusted Agent
+  Protocol, Mastercard's Agent Pay, Google's AP2, and Proof's x401 (backed by Circle, OpenAI,
+  Google, and Okta jointly) all shipped within months of each other in 2026.
+- **NIST (US government) opened a formal Request for Information** — "Security Considerations for
+  Artificial Intelligence Agents" — on Jan 8, 2026, one day after Neville's essay.
 
-Tranche AI is a narrow, concrete instance of exactly that second gap: **a verification layer that
-gates money movement on a challengeable proof of an AI agent's claim about off-chain reality** —
-applied to a domain (venture milestone financing) I actually have the diligence background to
-judge correctness in, rather than a generic "AI oracle" demo.
+Tranche AI is a narrow, concrete instance of that gap: **a verification layer that gates money
+movement on a challengeable proof of an AI agent's claim about off-chain reality** — applied to a
+domain (venture milestone financing) I actually have the diligence background to judge correctness
+in, rather than a generic "AI oracle" demo.
+
+**Honest competitive note**, since the whole point of this project is not overclaiming: the
+*pattern* (AI verifies → attests → gates funds, challengeable) is already being built by funded
+teams — [Nava](https://fortune.com/2026/04/14/nava-seed-funding-ai-financial-agents/) ($8.3M,
+Polychain/Archetype) posts an agent's accept/reject reasoning on-chain before a transaction
+executes; Circle's experimental escrow agent verifies freelance/service work. Both are the same
+shape, applied to general agent-to-agent or service payments — not VC deal mechanics. Searched
+directly for Carta or AngelList shipping anything like this: nothing found. So the accurate claim
+is "first application of this primitive to venture milestone financing that I could find," not
+"first ever."
 
 ## How it works
 
