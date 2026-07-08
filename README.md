@@ -1,13 +1,15 @@
-# AI Tranche
+# Tranche AI
 
-**Condition-gated capital release for venture-style deals.** An investor funds a recipient in
+**Live demo:** [tranche-ai.vercel.app](https://tranche-ai.vercel.app) · **Contract (Base Sepolia):** [`0x5c0a...92f7A`](https://sepolia.basescan.org/address/0x5c0a3EaC01B98478B9838bC3c93dCcFc81C92f7A)
+
+Condition-gated capital release for venture-style deals. An investor funds a recipient in
 tranches; each tranche unlocks only after a milestone attestation — reviewed by an AI agent,
 posted on-chain via [EAS](https://attest.org), and left open to a dispute window — has stood
 unchallenged.
 
 This is **not** a token-vesting/streaming project. [Sablier](https://sablier.com) and
 [Superfluid](https://superfluid.finance) already solved "unlock tokens linearly over time" —
-that's commoditized. AI Tranche solves a different problem: releasing capital on a **condition**,
+that's commoditized. Tranche AI solves a different problem: releasing capital on a **condition**,
 where the condition is real-world evidence that something happened, and where the entity judging
 that evidence is an AI agent whose verdict is *checkable*, not final.
 
@@ -34,7 +36,7 @@ As of mid-2026, the two most-cited venture theses at the AI × crypto intersecti
   claim instead of just trusting the operator. No infrastructure yet lets you cheaply prove a
   claimed computation or judgment was made honestly.
 
-AI Tranche is a narrow, concrete instance of exactly that second gap: **a verification layer that
+Tranche AI is a narrow, concrete instance of exactly that second gap: **a verification layer that
 gates money movement on a challengeable proof of an AI agent's claim about off-chain reality** —
 applied to a domain (venture milestone financing) I actually have the diligence background to
 judge correctness in, rather than a generic "AI oracle" demo.
@@ -76,12 +78,15 @@ investor ──funds──▶ TrancheVault ◀──evidence── recipient
 src/TrancheVault.sol             — core contract: funding, attestation checks, dispute, release, clawback
 src/mocks/MockERC20.sol          — test-only stablecoin stand-in
 test/TrancheVault.t.sol          — Foundry test suite, deployed against real EAS + SchemaRegistry (no mocked oracle)
-script/DeployTrancheVault.s.sol  — env-var-driven deploy script
+script/DeployTrancheVault.s.sol  — env-var-driven deploy script (any chain)
+script/DeployBaseSepolia.s.sol   — the actual script used for the live Base Sepolia deploy
+script/DemoSeed.s.sol            — local Anvil demo-deal deployer
+script/seed-demo.sh              — posts the demo attestation (see note in that file on why)
 agent/                           — off-chain TypeScript review agent (Claude review → EAS attestation)
-web/                             — frontend (planned — see Roadmap)
+web/                             — frontend — live at tranche-ai.vercel.app
 ```
 
-## Build plan
+## Status
 
 ### Phase 0 — Contract core (done)
 - [x] `TrancheVault.sol`: fund → attest → dispute-or-release → clawback, full access control
@@ -92,7 +97,7 @@ web/                             — frontend (planned — see Roadmap)
 - [ ] Evidence fetchers: GitHub API (commit/PR activity), doc pinning to IPFS/Arweave
 - [ ] `postAttestation()` — sign and submit via `@ethereum-attestation-service/eas-sdk`
 - [ ] `submitToVault()` — plain ethers/viem call to `submitAttestation`
-- [ ] Register the milestone EAS schema on testnet
+- [x] Milestone EAS schema registered on testnet (see below)
 
 ### Phase 2 — Testnet deployment (done)
 - [x] Deploy `TrancheVault` + a mock USDC to **Base Sepolia**, against the real, live
@@ -116,13 +121,15 @@ multi-party flow is already fully exercised by the local Anvil test suite and de
 - [x] Investor view: see tranche status, dispute, claw back a missed-deadline tranche
 - [x] Recipient view: submit a milestone attestation UID, track attestation/dispute status
 - [x] Public view: read-only deal explorer (anyone can inspect a deal's attestation trail)
-- [x] Wired to real on-chain data — verified live against a locally-seeded deal (`web/`)
+- [x] Wired to real on-chain data, verified live in-browser before deploying
+- [x] **Deployed to Vercel**, auto-deploying on every push to `main`: [tranche-ai.vercel.app](https://tranche-ai.vercel.app)
 - [ ] "Create a deal" flow (currently one deal per deployed vault, configured via env var)
 
 ### Phase 4 — Polish / demo readiness
-- [ ] Deploy to Base Sepolia and point the frontend at it (currently verified against local Anvil)
-- [ ] Get a real WalletConnect Cloud project ID (currently a dev placeholder)
-- [ ] Seed a realistic demo deal (2-3 tranches) with a walkthrough script
+- [ ] Get a real WalletConnect Cloud project ID (currently a dev placeholder — injected wallets
+      like MetaMask work fine, only the WalletConnect QR option is affected)
+- [ ] Wire the agent end-to-end (see Phase 1)
+- [ ] Seed a second, richer demo deal (2-3 tranches, more realistic evidence) for a walkthrough
 - [ ] One-page deck: problem, whitespace framing (KYA / verification layer), how it works, demo link
 
 ### Deliberately out of scope for v1
@@ -130,39 +137,22 @@ multi-party flow is already fully exercised by the local Anvil test suite and de
 - A real arbitration process beyond "a designated address decides" (a small reviewer panel is v2)
 - Any token/points/incentive layer — this is infrastructure, not a token launch
 
-## Frontend & hosting plan
+## Stack
 
-**Stack:** Next.js (App Router) + TypeScript + [wagmi](https://wagmi.sh)/[viem](https://viem.sh) for
-contract reads/writes + a wallet connector (RainbowKit or ConnectKit). This is the standard,
-boring, well-documented stack for a dApp frontend — no reason to deviate for a portfolio project.
-
-**Chain:** deploying to **Base Sepolia** (Base's testnet), not Ethereum Sepolia. Reasoning:
-- EAS has first-class, well-documented support on Base.
-- Base is where the x402 agent-payment ecosystem actually lives (Coinbase-backed, highest real
-  agent transaction volume of any chain right now) — deploying there puts the demo in the same
-  neighborhood as the ecosystem the whitespace framing is about.
-- Cheap/fast for a demo; free testnet ETH from a faucet, no real funds at risk.
-
-**Hosting:**
-- **Frontend → Vercel.** Free tier, native Next.js support, connects directly to the GitHub repo
-  for auto-deploy on push — you get a live URL (`tranche-ai.vercel.app` or a custom domain) with
-  zero server management. This is the default choice for this stack; no reason to consider
-  anything else at this scale.
-- **Contracts → Base Sepolia**, verified on [BaseScan](https://sepolia.basescan.org) so anyone
-  (a hackathon judge, a recruiter) can read the deployed contract directly.
-- **Agent service** — for a hackathon demo, this can run as a Vercel serverless function or even
-  be triggered manually via a CLI script (`agent/src/reviewMilestone.ts`) during the live demo,
-  rather than standing up a persistent server. Keep it simple until there's a reason not to.
+- **Contracts:** Solidity + [Foundry](https://book.getfoundry.sh) (forge/cast/anvil), built on
+  [EAS](https://attest.org) rather than a custom oracle
+- **Frontend:** Next.js (App Router) + TypeScript + [wagmi](https://wagmi.sh)/[viem](https://viem.sh) +
+  [RainbowKit](https://rainbowkit.com), hosted on Vercel
+- **Chain:** Base Sepolia — EAS has first-class support there, it's where the x402 agent-payment
+  ecosystem actually lives (Coinbase-backed, highest real agent transaction volume of any chain
+  right now), and it's cheap/fast for a demo
+- **Agent:** TypeScript + the Anthropic SDK (Claude), posting attestations via the EAS SDK
 
 ## What else to plan for
 
 - **A private key for the agent's signing address**, separate from your personal wallet — this is
   the address whose attestations the contract trusts, so treat it like a service credential, not
   a wallet you also hold funds in.
-- **An `ANTHROPIC_API_KEY`** for the review agent, and a **Base Sepolia RPC URL** (Alchemy or
-  Coinbase Developer Platform both offer free tiers).
-- **A short demo script** for the hackathon: one investor wallet, one recipient wallet, one fake
-  "milestone" with real evidence (e.g. this very repo's commit history) run through the agent live.
 - **The pitch framing**: lead with the KYA/verification-layer whitespace, not "VC tool" — that's
   what makes it read as infrastructure-aware rather than a niche fintech utility.
 
@@ -173,6 +163,9 @@ forge install          # pulls forge-std, eas-contracts, openzeppelin-contracts
 forge build
 forge test -vv
 ```
+
+To stand up a full local demo deal against Anvil, or run the frontend locally, see
+[`web/README.md`](web/README.md).
 
 ## Deploying
 

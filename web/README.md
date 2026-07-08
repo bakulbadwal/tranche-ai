@@ -1,4 +1,4 @@
-# AI Tranche — frontend
+# Tranche AI — frontend
 
 Next.js + [wagmi](https://wagmi.sh)/[viem](https://viem.sh) + [RainbowKit](https://rainbowkit.com)
 dashboard for a deployed `TrancheVault` deal. Three views:

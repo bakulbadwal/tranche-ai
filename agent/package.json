@@ -1,8 +1,8 @@
 {
-  "name": "aitranched-review-agent",
+  "name": "tranche-ai-review-agent",
   "version": "0.1.0",
   "private": true,
-  "description": "Off-chain milestone review agent for AI Tranche — reviews submitted evidence with Claude and posts an EAS attestation that the TrancheVault contract checks before releasing a tranche.",
+  "description": "Off-chain milestone review agent for Tranche AI — reviews submitted evidence with Claude and posts an EAS attestation that the TrancheVault contract checks before releasing a tranche.",
   "type": "module",
   "scripts": {
     "review": "tsx --env-file=.env src/reviewMilestone.ts"

@@ -16,7 +16,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "AI Tranche",
+  title: "Tranche AI",
   description:
     "Condition-gated capital release for venture-style deals — milestones verified by an AI review agent, attested on-chain via EAS, and challengeable before funds move.",
 };
@@ -36,7 +36,7 @@ export default function RootLayout({
           <header className="border-b border-neutral-800">
             <div className="mx-auto max-w-5xl px-6 py-4 flex items-center justify-between">
               <Link href="/" className="font-semibold tracking-tight text-lg">
-                AI Tranche
+                Tranche AI
               </Link>
               <nav className="flex items-center gap-6 text-sm text-neutral-400">
                 <Link href="/investor" className="hover:text-neutral-100">
@@ -51,7 +51,7 @@ export default function RootLayout({
           </header>
           <main className="flex-1">{children}</main>
           <footer className="border-t border-neutral-800 py-6 text-center text-xs text-neutral-500">
-            AI Tranche — condition-gated capital release. Not audited. Not financial advice.
+            Tranche AI — condition-gated capital release. Not audited. Not financial advice.
           </footer>
         </Providers>
       </body>

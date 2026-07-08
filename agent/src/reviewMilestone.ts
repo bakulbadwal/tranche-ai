@@ -1,5 +1,5 @@
 /**
- * Milestone review agent — the off-chain half of AI Tranche.
+ * Milestone review agent — the off-chain half of Tranche AI.
  *
  * Flow:
  *   1. Pull evidence for a milestone (a GitHub repo, a PDF, a metrics export — whatever the
