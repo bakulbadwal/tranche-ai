@@ -98,12 +98,16 @@ web/                             — frontend (planned — see Roadmap)
 - [ ] Deploy `TrancheVault` + a mock USDC to **Base Sepolia** (see rationale below)
 - [ ] Register real EAS schema, run one full demo deal end-to-end from a script
 
-### Phase 3 — Frontend
-- [ ] Investor view: create a deal, fund it, see tranche status, dispute
-- [ ] Recipient view: submit milestone evidence, track attestation status
-- [ ] Public view: read-only deal explorer (anyone can inspect a deal's attestation trail)
+### Phase 3 — Frontend (done)
+- [x] Investor view: see tranche status, dispute, claw back a missed-deadline tranche
+- [x] Recipient view: submit a milestone attestation UID, track attestation/dispute status
+- [x] Public view: read-only deal explorer (anyone can inspect a deal's attestation trail)
+- [x] Wired to real on-chain data — verified live against a locally-seeded deal (`web/`)
+- [ ] "Create a deal" flow (currently one deal per deployed vault, configured via env var)
 
 ### Phase 4 — Polish / demo readiness
+- [ ] Deploy to Base Sepolia and point the frontend at it (currently verified against local Anvil)
+- [ ] Get a real WalletConnect Cloud project ID (currently a dev placeholder)
 - [ ] Seed a realistic demo deal (2-3 tranches) with a walkthrough script
 - [ ] One-page deck: problem, whitespace framing (KYA / verification layer), how it works, demo link
 
