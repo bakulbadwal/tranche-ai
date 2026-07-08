@@ -94,9 +94,23 @@ web/                             — frontend (planned — see Roadmap)
 - [ ] `submitToVault()` — plain ethers/viem call to `submitAttestation`
 - [ ] Register the milestone EAS schema on testnet
 
-### Phase 2 — Testnet deployment
-- [ ] Deploy `TrancheVault` + a mock USDC to **Base Sepolia** (see rationale below)
-- [ ] Register real EAS schema, run one full demo deal end-to-end from a script
+### Phase 2 — Testnet deployment (done)
+- [x] Deploy `TrancheVault` + a mock USDC to **Base Sepolia**, against the real, live
+      OP-Stack EAS predeploys (not a locally-deployed EAS instance)
+- [x] Register a real EAS schema, run one full demo deal end-to-end from a script
+
+**Live on Base Sepolia:**
+| Contract | Address |
+|---|---|
+| `TrancheVault` | [`0x5c0a3EaC01B98478B9838bC3c93dCcFc81C92f7A`](https://sepolia.basescan.org/address/0x5c0a3EaC01B98478B9838bC3c93dCcFc81C92f7A) |
+| `MockERC20` (demo stablecoin) | [`0x5300F6bC8E1A72b3F59d02020530DE868906d495`](https://sepolia.basescan.org/address/0x5300F6bC8E1A72b3F59d02020530DE868906d495) |
+| EAS (real predeploy) | `0x4200000000000000000000000000000000000021` |
+| SchemaRegistry (real predeploy) | `0x4200000000000000000000000000000000000020` |
+
+This testnet deal uses one funded deployer address for all four roles
+(investor/recipient/agent/arbitrator) to avoid needing to fund multiple wallets — the
+multi-party flow is already fully exercised by the local Anvil test suite and demo seed
+(`script/DemoSeed.s.sol` + `script/seed-demo.sh`).
 
 ### Phase 3 — Frontend (done)
 - [x] Investor view: see tranche status, dispute, claw back a missed-deadline tranche
