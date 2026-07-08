@@ -16,10 +16,26 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
+const TITLE = "Tranche AI — condition-gated capital release";
+const DESCRIPTION =
+  "Condition-gated capital release for venture-style deals — milestones verified by an AI review agent, attested on-chain via EAS, and challengeable before funds move.";
+
 export const metadata: Metadata = {
-  title: "Tranche AI — condition-gated capital release",
-  description:
-    "Condition-gated capital release for venture-style deals — milestones verified by an AI review agent, attested on-chain via EAS, and challengeable before funds move.",
+  metadataBase: new URL("https://tranche-ai.vercel.app"),
+  title: TITLE,
+  description: DESCRIPTION,
+  openGraph: {
+    title: TITLE,
+    description: DESCRIPTION,
+    url: "https://tranche-ai.vercel.app",
+    siteName: "Tranche AI",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: TITLE,
+    description: DESCRIPTION,
+  },
 };
 
 export default function RootLayout({
