@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import { Script, console } from "forge-std/Script.sol";
-import { IERC20 } from "forge-std/interfaces/IERC20.sol";
-import { ISchemaRegistry } from "eas-contracts/ISchemaRegistry.sol";
-import { ISchemaResolver } from "eas-contracts/resolver/ISchemaResolver.sol";
-import { IEAS } from "eas-contracts/IEAS.sol";
+import {Script, console} from "forge-std/Script.sol";
+import {IERC20} from "forge-std/interfaces/IERC20.sol";
+import {ISchemaRegistry} from "eas-contracts/ISchemaRegistry.sol";
+import {ISchemaResolver} from "eas-contracts/resolver/ISchemaResolver.sol";
+import {IEAS} from "eas-contracts/IEAS.sol";
 
-import { TrancheVault } from "../src/TrancheVault.sol";
-import { MockERC20 } from "../src/mocks/MockERC20.sol";
+import {TrancheVault} from "../src/TrancheVault.sol";
+import {MockERC20} from "../src/mocks/MockERC20.sol";
 
 /// @dev Deploys a demo deal to Base Sepolia against the REAL, live EAS predeploys (OP Stack
 ///      standard addresses — same on every Superchain L2, including Base). Uses one funded
@@ -28,9 +28,8 @@ contract DeployBaseSepolia is Script {
 
         MockERC20 token = new MockERC20();
 
-        bytes32 schemaUID = ISchemaRegistry(SCHEMA_REGISTRY).register(
-            "string milestone,uint8 confidence,string evidenceURI", ISchemaResolver(address(0)), true
-        );
+        bytes32 schemaUID = ISchemaRegistry(SCHEMA_REGISTRY)
+            .register("string milestone,uint8 confidence,string evidenceURI", ISchemaResolver(address(0)), true);
 
         uint256[] memory amounts = new uint256[](2);
         amounts[0] = 10_000e6;
@@ -49,7 +48,16 @@ contract DeployBaseSepolia is Script {
         schemas[1] = schemaUID;
 
         TrancheVault vault = new TrancheVault(
-            IERC20(address(token)), IEAS(EAS), deployer, deployer, deployer, deployer, amounts, deadlines, windows, schemas
+            IERC20(address(token)),
+            IEAS(EAS),
+            deployer,
+            deployer,
+            deployer,
+            deployer,
+            amounts,
+            deadlines,
+            windows,
+            schemas
         );
 
         token.mint(deployer, 50_000e6);

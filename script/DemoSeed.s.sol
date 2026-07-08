@@ -1,16 +1,16 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import { Script, console } from "forge-std/Script.sol";
-import { IERC20 } from "forge-std/interfaces/IERC20.sol";
-import { EAS } from "eas-contracts/EAS.sol";
-import { SchemaRegistry } from "eas-contracts/SchemaRegistry.sol";
-import { ISchemaRegistry } from "eas-contracts/ISchemaRegistry.sol";
-import { ISchemaResolver } from "eas-contracts/resolver/ISchemaResolver.sol";
-import { IEAS } from "eas-contracts/IEAS.sol";
+import {Script, console} from "forge-std/Script.sol";
+import {IERC20} from "forge-std/interfaces/IERC20.sol";
+import {EAS} from "eas-contracts/EAS.sol";
+import {SchemaRegistry} from "eas-contracts/SchemaRegistry.sol";
+import {ISchemaRegistry} from "eas-contracts/ISchemaRegistry.sol";
+import {ISchemaResolver} from "eas-contracts/resolver/ISchemaResolver.sol";
+import {IEAS} from "eas-contracts/IEAS.sol";
 
-import { TrancheVault } from "../src/TrancheVault.sol";
-import { MockERC20 } from "../src/mocks/MockERC20.sol";
+import {TrancheVault} from "../src/TrancheVault.sol";
+import {MockERC20} from "../src/mocks/MockERC20.sol";
 
 /// @dev Local-only demo seed: deploys EAS + a full example deal to Anvil so the frontend has
 ///      real data to render (one attested tranche mid-dispute-window, one still pending).

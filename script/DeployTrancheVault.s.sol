@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import { Script, console } from "forge-std/Script.sol";
-import { IERC20 } from "forge-std/interfaces/IERC20.sol";
-import { IEAS } from "eas-contracts/IEAS.sol";
-import { TrancheVault } from "../src/TrancheVault.sol";
+import {Script, console} from "forge-std/Script.sol";
+import {IERC20} from "forge-std/interfaces/IERC20.sol";
+import {IEAS} from "eas-contracts/IEAS.sol";
+import {TrancheVault} from "../src/TrancheVault.sol";
 
 /// @dev Example deployment. Reads deal parameters from env vars so the same script works for
 ///      any deal without editing code. See README for the EAS schema you need to register first.

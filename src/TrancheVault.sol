@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import { IERC20 } from "forge-std/interfaces/IERC20.sol";
-import { IEAS, AttestationRequest, AttestationRequestData } from "eas-contracts/IEAS.sol";
-import { Attestation } from "eas-contracts/Common.sol";
+import {IERC20} from "forge-std/interfaces/IERC20.sol";
+import {IEAS, AttestationRequest, AttestationRequestData} from "eas-contracts/IEAS.sol";
+import {Attestation} from "eas-contracts/Common.sol";
 
 /// @title TrancheVault
 /// @notice Condition-gated capital release for venture-style deals. An investor funds a

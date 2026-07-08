@@ -1,17 +1,17 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.26;
 
-import { Test } from "forge-std/Test.sol";
-import { IERC20 } from "forge-std/interfaces/IERC20.sol";
-import { EAS } from "eas-contracts/EAS.sol";
-import { SchemaRegistry } from "eas-contracts/SchemaRegistry.sol";
-import { ISchemaRegistry } from "eas-contracts/ISchemaRegistry.sol";
-import { ISchemaResolver } from "eas-contracts/resolver/ISchemaResolver.sol";
-import { AttestationRequest, AttestationRequestData } from "eas-contracts/IEAS.sol";
-import { NO_EXPIRATION_TIME, EMPTY_UID } from "eas-contracts/Common.sol";
+import {Test} from "forge-std/Test.sol";
+import {IERC20} from "forge-std/interfaces/IERC20.sol";
+import {EAS} from "eas-contracts/EAS.sol";
+import {SchemaRegistry} from "eas-contracts/SchemaRegistry.sol";
+import {ISchemaRegistry} from "eas-contracts/ISchemaRegistry.sol";
+import {ISchemaResolver} from "eas-contracts/resolver/ISchemaResolver.sol";
+import {AttestationRequest, AttestationRequestData} from "eas-contracts/IEAS.sol";
+import {NO_EXPIRATION_TIME, EMPTY_UID} from "eas-contracts/Common.sol";
 
-import { TrancheVault } from "../src/TrancheVault.sol";
-import { MockERC20 } from "../src/mocks/MockERC20.sol";
+import {TrancheVault} from "../src/TrancheVault.sol";
+import {MockERC20} from "../src/mocks/MockERC20.sol";
 
 contract TrancheVaultTest is Test {
     EAS eas;
@@ -35,7 +35,9 @@ contract TrancheVaultTest is Test {
         eas = new EAS(ISchemaRegistry(address(registry)));
         token = new MockERC20();
 
-        schemaUID = registry.register("string milestone,uint8 confidence,string evidenceURI", ISchemaResolver(address(0)), true);
+        schemaUID = registry.register(
+            "string milestone,uint8 confidence,string evidenceURI", ISchemaResolver(address(0)), true
+        );
 
         uint256[] memory amounts = new uint256[](2);
         amounts[0] = T0_AMOUNT;
