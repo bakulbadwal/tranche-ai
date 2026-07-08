@@ -33,7 +33,7 @@ export function useDealMeta() {
     query: { enabled },
   });
 
-  if (!data) return { isLoading, error, deal: null as const };
+  if (!data) return { isLoading, error, deal: null };
 
   const [investor, recipient, agent, arbitrator, token, trancheCount] = data as [
     `0x${string}`,
